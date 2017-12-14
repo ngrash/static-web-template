@@ -1,0 +1,16 @@
+/*
+ * The SCSS file structure is based on the suggestions from the
+ * Sass Guidelines. Read more: https://sass-guidelin.es/#architecture
+ */
+
+@import 'abstract/variables';
+
+@import 'vendors/bootstrap';
+
+@import 'base/base';
+@import 'base/typography';
+
+// @import 'layout/header';
+
+@import 'components/browserupdate';
+

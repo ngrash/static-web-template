@@ -1,16 +1,84 @@
-/*
+/**
+ * This is the main SCSS file. It only contains @import statements and no style
+ * rules itself.
+ *
+ * tl;dr: Import your SCSS files at the appropriate place below.
+ *
  * The SCSS file structure is based on the suggestions from the
- * Sass Guidelines. Read more: https://sass-guidelin.es/#architecture
+ * Sass Guidelines. Read more:
+ *
+ *   https://sass-guidelin.es/#architecture
+ *
+ * The comments describing the sections are mostly copied from
+ * the guidelines with some minor adjustments for readability.
+ *
+ * Guidelines CC BY 4.0 Hugo Giraudel
+ * License details: https://creativecommons.org/licenses/by/4.0/deed.en
+ */
+
+/**
+ * 1. Abstract
+ *
+ * The abstracts/ folder gathers all Sass tools and helpers used across the
+ * project. Every global variable, function, mixin and placeholder should be
+ * put in here.
+ * The rule of thumb for this folder is that it should not output a single line
+ * of CSS when compiled on its own. These are nothing but Sass helpers.
  */
 
 @import 'abstract/variables';
 
+/**
+ * 2. Vendors
+ *
+ * Most projects will have a vendors/ folder containing all the CSS files from
+ * external libraries and frameworks – Normalize, Bootstrap, jQueryUI,
+ * FancyCarouselSliderjQueryPowered, and so on. Putting those aside in the same
+ * folder is a good way to say “Hey, this is not from me, not my code, not my
+ * responsibility”.
+ */
+
 @import 'vendors/bootstrap';
+
+/**
+ * 3. Base
+ *
+ * The base/ folder holds what we might call the boilerplate code for the
+ * project.
+ *
+ * If your project uses a lot of CSS animations, you might consider
+ * adding an \_animations.scss file in there containing the @keyframes
+ * definitions of all your animations. If you only use a them sporadically,
+ * let them live along the selectors that use them.
+ */
 
 @import 'base/base';
 @import 'base/typography';
 
-// @import 'layout/header';
+/**
+ * 4. Layout
+ *
+ * The layout/ folder contains everything that takes part in laying out the
+ * site or application. This folder could have stylesheets for the main parts
+ * of the site (header, footer, navigation, sidebar…), the grid system or even
+ * CSS styles for all the forms.
+ */
+
+//@import 'layout/header';
+//@import 'layout/navigation';
+//@import 'layout/footer';
+
+/**
+ * 5. Components
+ *
+ * For smaller components, there is the components/ folder. While layout/ is
+ * macro (defining the global wireframe), components/ is more focused on
+ * widgets. It contains all kind of specific modules like a slider, a loader, a
+ * widget, and basically anything along those lines. There are usually a lot of
+ * files in components/ since the whole site/application should be mostly
+ * composed of tiny modules.
+ */
 
 @import 'components/browserupdate';
-
+//@import 'components/links';
+//@import 'components/buttons';

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="css/{{ index .Site.Data.css.hash "main.css" | default "main.css" }}">
     </head>
     <body>
-        {{ partial "browserupgrade.html" }}
+        {{ partial "browserupgrade.html" . }}
 
         <!-- Add your site or application content here -->
         <p>Hello world! Read more: <a href="https://github.com/ngrash/static-web-template/">github.com/ngrash/static-web-template</a>.</p>

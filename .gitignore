@@ -1,18 +1,13 @@
-/tmp/
-!/tmp/.keep
+/static/js/
+/static/css/
+/static/images/
+
+/data/js/hash.json
+/data/css/hash.json
+/data/images/hash.json
+
 /node_modules/
 !/node_modules/.keep
 
 /public/
 !/public/.keep
-
-/static/js/
-!/static/js/.keep
-/static/images/
-!/static/images/.keep
-/static/css/
-!/static/css/.keep
-
-/data/js/hash.json
-/data/images/hash.json
-/data/css/hash.json

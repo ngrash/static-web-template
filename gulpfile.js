@@ -1,10 +1,10 @@
 var gulp         = require('gulp'),
     sass         = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
-    hash         = require('gulp-hash');
+    hash         = require('gulp-hash'),
     fingerprint  = require('gulp-fingerprint'),
-    uglify       = require('gulp-uglify');
-    sequence     = require('run-sequence');
+    uglify       = require('gulp-uglify'),
+    sequence     = require('run-sequence'),
     webpack      = require('webpack-stream'),
     del          = require('del');
 

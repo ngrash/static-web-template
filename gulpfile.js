@@ -4,9 +4,12 @@ var gulp         = require('gulp'),
     hash         = require('gulp-hash'),
     fingerprint  = require('gulp-fingerprint'),
     uglify       = require('gulp-uglify'),
+    connect      = require('gulp-connect'),
     sequence     = require('run-sequence'),
     webpack      = require('webpack-stream'),
     del          = require('del');
+
+var execSync = require('child_process').execSync;
 
 var { ProvidePlugin } = require('webpack');
 
@@ -14,17 +17,28 @@ var paths = {
   src: 'src',
   dest: 'static',
   data: 'data',
+  public: 'public',
 };
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['connect', 'watch']);
 
-gulp.task('build', ['js', 'images', 'scss']);
+gulp.task('connect', function() {
+  connect.server({
+    root: paths.public,
+    livereload: true,
+  });
+});
 
-gulp.task('prod', ['build'], function(done) {
+gulp.task('build', ['js', 'images', 'scss'], function(done) {
+  sequence('hugo', done);
+});
+
+gulp.task('prod', function(done) {
   sequence(
-    'js:uglify', 'js:hash',
-    'images:hash',
-    'scss:fingerprint', 'scss:hash',
+    'js', 'js:uglify', 'js:hash',
+    'images', 'images:hash',
+    'scss', 'scss:fingerprint', 'scss:hash',
+    'hugo',
     done);
 });
 
@@ -54,7 +68,7 @@ gulp.task('scss:fingerprint', function() {
 
   return gulp.src(paths.dest + '/css/main.css')
     .pipe(fingerprint(manifest, options))
-    .pipe(gulp.dest(paths.dest + '/css'))
+    .pipe(gulp.dest(paths.dest + '/css'));
 });
 
 gulp.task('scss:hash', function() {
@@ -151,5 +165,20 @@ gulp.task('watch', ['build'], function() {
   gulp.watch(paths.src + '/scss/**/*', ['scss']);
   gulp.watch(paths.src + '/images/**/*', ['images', 'scss']);
   gulp.watch(paths.src + '/js/**/*', ['js']);
+
+  gulp.watch(
+    [
+      'layouts/**/*',
+      paths.dest + '/**/*',
+      paths.src + '/data/**/hash.json',
+    ],
+    ['hugo']);
 });
 
+gulp.task('hugo', function() {
+  var output = execSync('$(npm bin)/hugo -v');
+  console.log(output.toString('utf8'));
+
+  return gulp.src(paths.public + '/**/*')
+             .pipe(connect.reload());
+});
